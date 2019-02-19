@@ -1,0 +1,11 @@
+div {
+    &.weather, &.forecast {
+        display: flex;
+        justify-content: space-around;
+        flex-grow: 1;
+
+        label {
+            display: flex;
+        }
+    }
+}

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { WeatherService } from '../weather.service';
-import { Weather } from '../interfaces/weather';
 import { CityWeather } from '../interfaces/city-weather';
+import { CityForecast } from '../interfaces/city-forecast';
 import { forkJoin } from 'rxjs';
 
 @Component({
@@ -11,48 +11,61 @@ import { forkJoin } from 'rxjs';
 })
 export class WeatherPanelsComponent implements OnInit {
 
-    London: CityWeather;
-    Cardiff: CityWeather;
-    Rome: CityWeather;
-    Amsterdam: CityWeather;
-    Florence: CityWeather;
+    london: CityWeather;
+    londonForecast: CityForecast[];
+    cardiff: CityWeather;
+    cardiffForecast: CityForecast[];
+    rome: CityWeather;
+    romeForecast: CityForecast[];
+    dublin: CityWeather;
+    dublinForecast: CityForecast[];
+    milan: CityWeather;
+    milanForecast: CityForecast[];
 
     constructor(private weatherService: WeatherService) { }
 
     ngOnInit() {
-        this.weatherService.getCityWeather('London').subscribe((data: CityWeather) => {
-            this.London = data;
-        });
-        this.weatherService.getCityWeather('Amsterdam').subscribe((data: CityWeather) => {
-            this.Amsterdam = data;
-        });
-        this.weatherService.getCityWeather('Rome').subscribe((data: CityWeather) => {
-            this.Rome = data;
-        });
-        this.weatherService.getCityWeather('Cardiff').subscribe((data: CityWeather) => {
-            this.Cardiff = data;
-        });
-        this.weatherService.getCityWeather('Florence').subscribe((data: CityWeather) => {
-            this.Florence = data;
-        });
+        this.getWeather();
+    }
 
-        // forkJoin(
-        //     this.weatherService.getCityWeather('London'),
-        //     this.weatherService.getCityWeather('Cardiff'),
-        //     this.weatherService.getCityWeather('Amsterdam'),
-        //     this.weatherService.getCityWeather('Rome'),
-        //     this.weatherService.getCityWeather('Florence')
-        // ).subscribe(([London, Cardiff, Amsterdam, Rome, Florence]: CityWeather[]) => {
-        //     console.log('DEBUG');
-        //     this.weatherData = {
-        //         london: London,
-        //         cardiff: Cardiff,
-        //         amsterdam: Amsterdam,
-        //         rome: Rome,
-        //         florence: Florence
-        //     };
-        //     console.log(this.weatherData);
-        // });
+    public getWeather(): void {
+        forkJoin(
+            this.weatherService.getCityWeather('cardiff'),
+            this.weatherService.getCityWeather('london'),
+            this.weatherService.getCityWeather('dublin'),
+            this.weatherService.getCityWeather('rome'),
+            this.weatherService.getCityWeather('milan')
+        ).subscribe((data) => {
+            [this.cardiff, this.london, this.dublin, this.rome, this.milan] = data;
+        }, ({error, city}) => {
+            console.log(`weather for ${city} returned the following error:`, error);
+        });
+    }
+
+    public getForecast(city): void {
+        this.weatherService.getCityForecast(city).subscribe((data) => {
+            switch (city) {
+                case 'london':
+                    this.londonForecast = data;
+                    break;
+                case 'dublin':
+                    this.dublinForecast = data;
+                    break;
+                case 'rome':
+                    this.romeForecast = data;
+                    break;
+                case 'cardiff':
+                    this.cardiffForecast = data;
+                    break;
+                case 'milan':
+                    this.milanForecast = data;
+                    break;
+                default:
+                    break;
+            }
+        }, ({error, cityError}) => {
+            console.log(`forecast for ${cityError} returned the following error:`, error);
+        });
     }
 
 }

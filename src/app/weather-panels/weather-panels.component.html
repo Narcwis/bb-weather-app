@@ -2,55 +2,109 @@
     <mat-card-header>Weather Report</mat-card-header>
     <br>
     <mat-accordion>
-        <mat-expansion-panel>
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    London
-                </mat-panel-title>
-                <mat-panel-description>
-                    Current Weather: {{London?.weather}} Temperature: {{London?.temperature}}° C Wind: {{London?.wind}} m/s
-                </mat-panel-description>
-            </mat-expansion-panel-header>
-        </mat-expansion-panel>
-        <mat-expansion-panel>
+        <mat-expansion-panel (opened)="getForecast('cardiff')">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     Cardiff
                 </mat-panel-title>
                 <mat-panel-description>
-                    Current Weather: {{Cardiff?.weather}} Temperature: {{Cardiff?.temperature}}° C Wind: {{Cardiff?.wind}} m/s
+                    <div class="weather">
+                        <label>Time: Now</label><label>Weather: {{cardiff?.weather}}</label><label> Temperature: {{cardiff?.temperature}}°
+                        C </label><label> Wind: {{cardiff?.wind}} m/s</label>
+                    </div>
                 </mat-panel-description>
             </mat-expansion-panel-header>
+            <div *ngFor="let forecast of cardiffForecast">
+                <div class="forecast">
+                    <label>Time: {{forecast.time | date:'shortTime'}}</label><label>Weather: {{forecast.weather}}</label><label>
+                    Temperature: {{forecast.temperature}} ° C </label> <label>Wind:
+                    {{forecast.wind}} m/s</label>
+                </div>
+                <br>
+            </div>
         </mat-expansion-panel>
-        <mat-expansion-panel>
+        <mat-expansion-panel (opened)="getForecast('london')">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    London
+                </mat-panel-title>
+                <mat-panel-description>
+                        <div class="weather">
+                            <label>Time: Now</label><label>Weather: {{london?.weather}}</label><label> Temperature: {{london?.temperature}}°
+                            C </label><label> Wind: {{london?.wind}} m/s</label>
+                        </div>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div *ngFor="let forecast of londonForecast">
+                <div class="forecast">
+                    <label>Time: {{forecast.time | date:'shortTime'}}</label><label>Weather: {{forecast.weather}}</label><label> Temperature: {{forecast.temperature}} ° C </label> <label>Wind:
+                    {{forecast.wind}} m/s</label>
+                </div>
+                <br>
+            </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel (opened)="getForecast('dublin')">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Dublin
+                </mat-panel-title>
+                <mat-panel-description>
+                    <div class="weather">
+                        <label>Time: Now</label><label>Weather: {{dublin?.weather}}</label><label> Temperature: {{dublin?.temperature}}°
+                        C </label><label> Wind: {{dublin?.wind}} m/s</label>
+                    </div>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div *ngFor="let forecast of dublinForecast">
+                <div class="forecast">
+                    <label>Time: {{forecast.time | date:'shortTime'}}</label><label>Weather: {{forecast.weather}}</label><label>
+                    Temperature: {{forecast.temperature}} ° C </label> <label>Wind:
+                    {{forecast.wind}} m/s</label>
+                </div>
+                <br>
+            </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel (opened)="getForecast('rome')">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     Rome
                 </mat-panel-title>
                 <mat-panel-description>
-                    Current Weather: {{Rome?.weather}} Temperature: {{Rome?.temperature}}° C Wind: {{Rome?.wind}} m/s
+                    <div class="weather">
+                        <label>Time: Now</label><label>Weather: {{rome?.weather}}</label><label> Temperature: {{rome?.temperature}}°
+                        C </label><label> Wind: {{rome?.wind}} m/s</label>
+                    </div>
                 </mat-panel-description>
             </mat-expansion-panel-header>
+            <div *ngFor="let forecast of romeForecast">
+                <div class="forecast">
+                    <label>Time: {{forecast.time | date:'shortTime'}}</label><label>Weather: {{forecast.weather}}</label><label>
+                    Temperature: {{forecast.temperature}} ° C </label> <label>Wind:
+                    {{forecast.wind}} m/s</label>
+                </div>
+                <br>
+            </div>
         </mat-expansion-panel>
-        <mat-expansion-panel>
+        <mat-expansion-panel (opened)="getForecast('milan')">
             <mat-expansion-panel-header>
                 <mat-panel-title>
-                    Amsterdam
+                    Milan
                 </mat-panel-title>
                 <mat-panel-description>
-                    Current Weather: {{Amsterdam?.weather}} Temperature: {{Amsterdam?.temperature}}° C Wind: {{Amsterdam?.wind}} m/s
+                    <div class="weather">
+                        <label>Time: Now</label><label>Weather: {{milan?.weather}}</label><label> Temperature: {{milan?.temperature}}°
+                        C </label><label> Wind: {{milan?.wind}} m/s</label>
+                    </div>
                 </mat-panel-description>
             </mat-expansion-panel-header>
-        </mat-expansion-panel>
-        <mat-expansion-panel>
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    Florence
-                </mat-panel-title>
-                <mat-panel-description>
-                    Current Weather: {{Florence?.weather}} Temperature: {{Florence?.temperature}}° C Wind: {{Florence?.wind}} m/s
-                </mat-panel-description>
-            </mat-expansion-panel-header>
+            <div *ngFor="let forecast of milanForecast">
+                <div class="forecast">
+                    <label>Time: {{forecast.time | date:'shortTime'}}</label><label>Weather: {{forecast.weather}}</label><label>
+                    Temperature: {{forecast.temperature}} ° C </label> <label>Wind:
+                    {{forecast.wind}} m/s</label>
+                </div>
+                <br>
+            </div>
         </mat-expansion-panel>
     </mat-accordion>
 
